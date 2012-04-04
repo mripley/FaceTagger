@@ -19,7 +19,7 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 
-  #Bootstrap CSS gem
+  #Bootstrap CSS gem to make default layouts look better
   gem 'twitter-bootstrap-rails', '~>2.0.5'
 
 end
