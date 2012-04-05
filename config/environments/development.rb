@@ -38,4 +38,10 @@ FaceTagger::Application.configure do
   #config mailer options for devise
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
+  # Generate digests for assets URLs
+  config.assets.digest = true
+
+  #in config/environments/development.rb
+  config.to_prepare { Devise::SessionsController.force_ssl }
+  config.to_prepare { Devise::RegistrationsController.force_ssl }
 end
