@@ -8,7 +8,33 @@
 </head>
 <body>
 
-<%= yield %>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="#">FaceTagger</a>
+        <div class="nav-collapse">
+          <ul class="nav">
+	    <% if user_signed_in? %>
+	      <li><p class="navbar-text"> Signed in as <%=current_user.email%>. Not you?</p></li>	 	      
+              <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+	    <% else %>
+	      <li><%= link_to "Sign Up", new_user_registration_path %></li>
+	      <li><%= link_to "Sign In", new_user_session_path %> </li>
+	    <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="container">
+  <%= yield %>
+</div>
 
 </body>
 </html>
