@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120404234522) do
+ActiveRecord::Schema.define(:version => 20120411041831) do
+
+  create_table "taggables", :force => true do |t|
+    t.string   "img_url"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.integer  "upperLeftX"
+    t.integer  "upperLeftY"
+    t.integer  "lowerRightX"
+    t.integer  "lowerRightY"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

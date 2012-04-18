@@ -1,0 +1,21 @@
+<%= form_for(@taggable) do |f| %>
+  <% if @taggable.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@taggable.errors.count, "error") %> prohibited this taggable from being saved:</h2>
+
+      <ul>
+      <% @taggable.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :img_url %><br />
+    <%= f.text_field :img_url %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

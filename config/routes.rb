@@ -1,4 +1,6 @@
 FaceTagger::Application.routes.draw do
+  resources :taggables
+
   devise_for :users
 
   get "home/index"

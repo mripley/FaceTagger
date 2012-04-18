@@ -1,2 +1,29 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+
+<div class="row">
+  <div class="span8">
+    <h1>Face Tagger:</h1>
+   <p>
+     Face tagger is a semi automated face tagging system. By using computer
+     vision Facetagger can automatically locate most faces in photographs and
+     allows you to tag your friends and family members. These tags will be
+     saved for all time or can be downloaded as a new image that supports
+     meta-data
+   </p>
+   <p>
+     FaceTagger makes no claim to any sort of security or ownership of uploaded
+     photos. Use at your own risk!
+   </p>
+  </div>
+
+  <div class="span4">
+    
+    <%= link_to "Login", new_user_session_path, :class => "btn
+    btn-primary btn-large"%>
+    <%= link_to "Sign Up", new_user_registration_path, :class => "btn
+    btn-primary btn-large" %>
+
+  </div>
+</div>
+
+
+

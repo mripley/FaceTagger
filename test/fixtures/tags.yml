@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  upperLeftX: 1
+  upperLeftY: 1
+  lowerRightX: 1
+  lowerRightY: 1
+
+two:
+  name: MyString
+  upperLeftX: 1
+  upperLeftY: 1
+  lowerRightX: 1
+  lowerRightY: 1
