@@ -16,11 +16,14 @@
   </div>
 
   <div class="span4">
-    
-    <%= link_to "Login", new_user_session_path, :class => "btn
-    btn-primary btn-large"%>
-    <%= link_to "Sign Up", new_user_registration_path, :class => "btn
-    btn-primary btn-large" %>
+    <% if user_signed_in? %>
+       <%= link_to "Start Tagging!", new_taggable_path, :class => "btn btn-primary btn-large"%>
+       <%= link_to "Sign out", destroy_user_session_path, :method => :delete, :class => "btn btn-large"%>
+    <% else %>
+        <%= link_to "Login", new_user_session_path, :class => "btn btn-primary btn-large"%>
+	<%= link_to "Sign Up", new_user_registration_path, :class => "btn btn-primary btn-large" %>
+
+    <% end %>
 
   </div>
 </div>

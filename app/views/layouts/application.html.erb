@@ -20,6 +20,7 @@
         <div class="nav-collapse">
           <ul class="nav">
 	    <% if user_signed_in? %>
+	      <li><%= link_to "View Images", taggables_path %> </li>
 	      <li><p class="navbar-text"> Signed in as <%=current_user.email%>. Not you?</p></li>	 	      
               <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
 	    <% else %>
