@@ -1,8 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Img url:</b>
-  <%= @taggable.img_url %>
+  <b>Taggable:</b>
+ 
+  <%= image_tag @taggable.photo.url(:editable) %>
 </p>
 
 

@@ -10,7 +10,7 @@
 
 <% @taggables.each do |taggable| %>
   <tr>
-    <td><%= taggable.img_url %></td>
+    <td><%= taggable.photo.url(:small) %></td>
     <td><%= link_to 'Show', taggable %></td>
     <td><%= link_to 'Edit', edit_taggable_path(taggable) %></td>
     <td><%= link_to 'Destroy', taggable, confirm: 'Are you sure?', method: :delete %></td>
