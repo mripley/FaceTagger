@@ -1,23 +1,35 @@
 <h1>Listing taggables</h1>
 
-<table>
-  <tr>
-    <th>Img url</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
-<% @taggables.each do |taggable| %>
-  <tr>
-    <td><%= taggable.photo.url(:small) %></td>
-    <td><%= link_to 'Show', taggable %></td>
-    <td><%= link_to 'Edit', edit_taggable_path(taggable) %></td>
-    <td><%= link_to 'Destroy', taggable, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
 
-<br />
+      <tr>
+	<th>Photo</th>
+	<th></th>
+	<th></th>
+	<th></th>
+      </tr>
+      
+      <% @taggables.each do |taggable| %>
 
-<%= link_to 'New Taggable', new_taggable_path %>
+      <div class="row">
+	<div class="span4">
+    
+      <tr>
+	<td><%= image_tag taggable.photo.url(:small) %></td>
+	<td><%= link_to 'Edit', edit_taggable_path(taggable), :class => "btn
+	  btn-primary" %></td>
+	<td><%= link_to 'Show', taggable, :class => "btn" %></td>
+	<td><%= link_to 'Destroy', taggable, confirm: 'Are you sure?', method:
+	    :delete, :class => "btn" %></td>
+     </tr>
+
+      </div>
+      </div>
+      <br>
+      <% end %>
+    
+
+    <br />
+
+    <%= link_to 'New Taggable', new_taggable_path %>
+
