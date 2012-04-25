@@ -3,6 +3,7 @@ class TaggablesController < ApplicationController
   # GET /taggables.json
   def index
     @taggables = current_user.taggables
+    @taggable_center = current_user.taggables.first
 
     respond_to do |format|
       format.html # index.html.erb

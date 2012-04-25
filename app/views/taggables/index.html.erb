@@ -2,9 +2,6 @@
 
       <tr>
 	<th>Photo</th>
-	<th></th>
-	<th></th>
-	<th></th>
       </tr>
       
       <% @taggables.each do |taggable| %>
@@ -26,14 +23,21 @@
 		 <li> <%= link_to 'Show', taggable %></li>
 		 <li> <%= link_to 'Destroy', taggable, confirm: 'Are you sure?', method: :delete %></li>
 		</ul>
-	      </div>
-	      </div>
-	    </div>	  
-	</div>
-      </div>
+	      </div> <!-- ends btn-group -->
+	    </div>  <!-- ends span2 -->
+	  </div> <!-- ends row -->	  
+	</div> <!-- ends span4 -->
+
+      </div> <!-- row -->
       <br>
 
       <% end %>
+
+
+      <div class="span8">
+	<%= image_tag @taggable_center.photo.url(:editable) %>
+      </div>  <!-- ends span 8 -->
+
     <br />
 
     <%= link_to 'New Taggable', new_taggable_path %>
