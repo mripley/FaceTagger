@@ -6,4 +6,5 @@ class Taggable < ActiveRecord::Base
                   :url  => "/assets/products/:id/:style/:basename.:extension",
                   :path => ":rails_root/public/assets/products/:id/:style/:basename.:extension"
   attr_accessible :photo
+  attr_accessible :user_id
 end

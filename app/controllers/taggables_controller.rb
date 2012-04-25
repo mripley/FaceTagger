@@ -2,7 +2,7 @@ class TaggablesController < ApplicationController
   # GET /taggables
   # GET /taggables.json
   def index
-    @taggables = Taggable.all
+    @taggables = current_user.taggables
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class TaggablesController < ApplicationController
   # GET /taggables/1
   # GET /taggables/1.json
   def show
-    @taggable = Taggable.find(params[:id])
+    @taggable = current_user.taggables.find(params[:id])
     
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +24,7 @@ class TaggablesController < ApplicationController
   # GET /taggables/new
   # GET /taggables/new.json
   def new
-    @taggable = Taggable.new
+    @taggable = current_user.taggables.new(:user_id => current_user.id)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,7 +40,7 @@ class TaggablesController < ApplicationController
   # POST /taggables
   # POST /taggables.json
   def create
-    @taggable = Taggable.new(params[:taggable])
+    @taggable = current_user.taggables.new(params[:taggable], :user_id => current_user.id)
 
     respond_to do |format|
       if @taggable.save
@@ -56,7 +56,7 @@ class TaggablesController < ApplicationController
   # PUT /taggables/1
   # PUT /taggables/1.json
   def update
-    @taggable = Taggable.find(params[:id])
+    @taggable = current_user.taggables.find(params[:id])
 
     respond_to do |format|
       if @taggable.update_attributes(params[:taggable])
@@ -72,7 +72,7 @@ class TaggablesController < ApplicationController
   # DELETE /taggables/1
   # DELETE /taggables/1.json
   def destroy
-    @taggable = Taggable.find(params[:id])
+    @taggable = current_user.taggables.find(params[:id])
     @taggable.destroy
 
     respond_to do |format|
