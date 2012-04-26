@@ -1,44 +1,43 @@
-<h1>Listing taggables</h1>
+<div class="page-header">
+  <h1>Listing taggables</h1>
+</div>
+<div class="row">
+  <div class="span4">
+    <% @taggables.each do |taggable| %>
+    <div class="row">
+      <div class="span2">
+	<%= image_tag taggable.photo.url(:small) %>
+      </div>
+      <div class="span2">
+	<div class="btn-group">
+	  <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+	    Actions
+	    <span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu">
+	    <li> <%= link_to 'Edit', edit_taggable_path(taggable)%> </li>
+	    <li> <%= link_to 'Show', taggable %></li>
+	    <li> <%= link_to 'Destroy', taggable, confirm: 'Are you sure?', method: :delete %></li>
+	  </ul>
+	</div> <!-- ends btn-group -->
+      </div>  <!-- ends span2 -->
+    </div> <!-- ends row -->	  
+    <br>
+    
+    <% end %>
+  </div> <!-- ends span4 -->
+  
+  
+  <div class="span8">
+    <% if @taggable_center.nil? %>
+    <h1> No Images Loaded Yet</h1>
+    <% else %>
+    <h2> <%= @url_no_path %></h2>
+    <%= image_tag @taggable_center.photo.url(:editable)  %>
+    <% end %>
+  </div>  <!-- ends span 8 -->
+</div> <!-- row -->
 
-      <tr>
-	<th>Photo</th>
-      </tr>
-      
-      <% @taggables.each do |taggable| %>
-
-      <div class="row">
-	<div class="span4">
-	  <div class="row">
-	    <div class="span2">
-	      <%= image_tag taggable.photo.url(:small) %>
-	      </div>
-	    <div class="span2">
-	      <div class="btn-group">
-		<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-		  Actions
-		  <span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu">
-		 <li> <%= link_to 'Edit', edit_taggable_path(taggable)%> </li>
-		 <li> <%= link_to 'Show', taggable %></li>
-		 <li> <%= link_to 'Destroy', taggable, confirm: 'Are you sure?', method: :delete %></li>
-		</ul>
-	      </div> <!-- ends btn-group -->
-	    </div>  <!-- ends span2 -->
-	  </div> <!-- ends row -->	  
-	</div> <!-- ends span4 -->
-
-      </div> <!-- row -->
-      <br>
-
-      <% end %>
-
-
-      <div class="span8">
-	<%= image_tag @taggable_center.photo.url(:editable) %>
-      </div>  <!-- ends span 8 -->
-
-    <br />
-
-    <%= link_to 'New Taggable', new_taggable_path %>
+<br />
+<%= link_to 'New Taggable', new_taggable_path %>
 

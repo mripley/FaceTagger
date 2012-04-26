@@ -1,10 +1,13 @@
+require 'uri'
+
 class TaggablesController < ApplicationController
   # GET /taggables
   # GET /taggables.json
   def index
     @taggables = current_user.taggables
     @taggable_center = current_user.taggables.first
-
+    @url_no_path = URI.parse(@taggable_center.photo.url).path[%r{[^/]+\z}]
+     
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @taggables }
