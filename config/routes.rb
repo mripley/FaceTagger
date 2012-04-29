@@ -1,4 +1,6 @@
 FaceTagger::Application.routes.draw do
+  resources :tags
+
   resources :taggables
 
   devise_for :users

@@ -1,9 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Taggable:</b>
- 
-  <%= image_tag @taggable.photo.url(:editable) %>
+  <h2><%= "Taggable: #{@url_no_path}" %></h2>
+  <div class="row">
+    <div class="span12">
+      <%= image_tag @taggable.photo.url(:editable) %>
+    </div>
+  </div>
 </p>
 
 

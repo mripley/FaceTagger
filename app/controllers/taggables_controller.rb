@@ -1,4 +1,6 @@
 require 'uri'
+require 'rubygems'
+require 'opencv'
 
 class TaggablesController < ApplicationController
   # GET /taggables
@@ -6,8 +8,11 @@ class TaggablesController < ApplicationController
   def index
     @taggables = current_user.taggables
     @taggable_center = current_user.taggables.first
-    @url_no_path = URI.parse(@taggable_center.photo.url).path[%r{[^/]+\z}]
-     
+
+    if !@taggable_center.nil?
+      @url_no_path = URI.parse(@taggable_center.photo.url).path[%r{[^/]+\z}]
+    end
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @taggables }
@@ -18,7 +23,7 @@ class TaggablesController < ApplicationController
   # GET /taggables/1.json
   def show
     @taggable = current_user.taggables.find(params[:id])
-    
+    @url_no_path = URI.parse(@taggable.photo.url).path[%r{[^/]+\z}]
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @taggable }
@@ -46,9 +51,18 @@ class TaggablesController < ApplicationController
   def create
     @taggable = current_user.taggables.new(params[:taggable], :user_id => current_user.id)
 
+    faceArray = findFaces(URI.parse(@taggable.photo.url).path)
+    
+    faceArray.each do |rect|
+      taggable.tags.new(:upperLeftX => rect[0],
+                        :upperLeftY => rect[1],
+                        :lowerRightX => rect[2],
+                        :lowerRightY => rect[3])
+    end
+    
     respond_to do |format|
       if @taggable.save
-        format.html { redirect_to @taggable, notice: 'Taggable was successfully created.' }
+        format.html { redirect_to taggables_path, notice: 'Taggable was successfully created.' }
         format.json { render json: @taggable, status: :created, location: @taggable }
       else
         format.html { render action: "new" }
@@ -84,4 +98,17 @@ class TaggablesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def findFaces(pathToImage)
+    
+    haarKernel = "./vendor/opencv/haarcascade_frontalface_alt.xml"
+    detector = OpenCV::cvHaarClassifierCascade::load(haarKernel)
+    image = OpenCV::IplImage.load(pathToImage)
+    retval = []
+    detector.detect_objects(image).each do |region|
+      retval.push([region.top_left.x, region.top_left.y, region.bottom_right.x, region.bottom_right.y])
+    end
+    return retval
+  end
+
 end
