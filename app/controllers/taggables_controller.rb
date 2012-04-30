@@ -50,18 +50,20 @@ class TaggablesController < ApplicationController
   # POST /taggables.json
   def create
     @taggable = current_user.taggables.new(params[:taggable], :user_id => current_user.id)
-
-    faceArray = findFaces(URI.parse(@taggable.photo.url).path)
-    
-    faceArray.each do |rect|
-      taggable.tags.new(:upperLeftX => rect[0],
-                        :upperLeftY => rect[1],
-                        :lowerRightX => rect[2],
-                        :lowerRightY => rect[3])
-    end
-    
+ 
     respond_to do |format|
       if @taggable.save
+        # if the DB commit was successful then try to tag faces.
+        logger.debug(@taggable.photo.path)
+        faceArray = findFaces(@taggable.photo.path)
+        
+        faceArray.each do |rect|
+          @taggable.tags.new(:upperLeftX => rect[0],
+                             :upperLeftY => rect[1],
+                             :lowerRightX => rect[2],
+                             :lowerRightY => rect[3])
+        end
+
         format.html { redirect_to taggables_path, notice: 'Taggable was successfully created.' }
         format.json { render json: @taggable, status: :created, location: @taggable }
       else
@@ -102,7 +104,7 @@ class TaggablesController < ApplicationController
   def findFaces(pathToImage)
     
     haarKernel = "./vendor/opencv/haarcascade_frontalface_alt.xml"
-    detector = OpenCV::cvHaarClassifierCascade::load(haarKernel)
+    detector = OpenCV::CvHaarClassifierCascade::load(haarKernel)
     image = OpenCV::IplImage.load(pathToImage)
     retval = []
     detector.detect_objects(image).each do |region|
