@@ -58,10 +58,11 @@ class TaggablesController < ApplicationController
         faceArray = findFaces(@taggable.photo.path)
         
         faceArray.each do |rect|
-          @taggable.tags.new(:upperLeftX => rect[0],
+          @tag = @taggable.tags.new(:upperLeftX => rect[0],
                              :upperLeftY => rect[1],
                              :lowerRightX => rect[2],
                              :lowerRightY => rect[3])
+          @tag.save
         end
 
         format.html { redirect_to taggables_path, notice: 'Taggable was successfully created.' }
@@ -93,6 +94,12 @@ class TaggablesController < ApplicationController
   # DELETE /taggables/1.json
   def destroy
     @taggable = current_user.taggables.find(params[:id])
+
+    #destroy each tag in the taggable
+    @taggable.tags.each do |tag|
+      tag.destroy
+    end
+
     @taggable.destroy
 
     respond_to do |format|

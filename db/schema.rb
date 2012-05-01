@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120427025032) do
+ActiveRecord::Schema.define(:version => 20120501014710) do
 
   create_table "taggables", :force => true do |t|
     t.datetime "created_at",         :null => false
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20120427025032) do
     t.string   "person"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "taggable_id"
   end
 
   create_table "users", :force => true do |t|
