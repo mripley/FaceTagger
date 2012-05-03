@@ -29,10 +29,36 @@
   
   <div class="span8">
     <% if @taggable_center.nil? %>
-    <h1> No Images Loaded Yet</h1>
+      <h1> No Images Loaded Yet</h1>
     <% else %>
-    <h2> <%= @url_no_path %></h2>
-    <%= image_tag @taggable_center.photo.url(:editable)  %>
+      <h2> <%= @url_no_path %></h2>
+      <canvas id="imgCanvas" width="600" height="400">
+	Your browser doesn't support HTML5
+      </canvas>
+      <script type="text/javascript">
+	var c=document.getElementById("imgCanvas");
+	var ctx=c.getContext("2d");
+	var img=new Image();
+	img.onload = function(){
+	   ctx.lineWidth   = 2;
+	   ctx.strokeStyle = "#fff000";
+	   ctx.drawImage(img,0,0);
+
+	    <%@tags.each do |tag| %>
+	       ctx.strokeRect(<%=tag.upperLeftX%>,  
+		              <%=tag.upperLeftY%>,
+	                      <%= tag.lowerRightX - tag.upperLeftX %>,
+			      <%= tag.lowerRightY - tag.upperLeftY %>);
+	    <%end%>
+	  
+	};
+	img.src="<%= @url_path %>";
+
+      </script>
+      <h3>People in this photo:</h3>
+      <% @tags.each do |tag| %>
+        <h3><%= tag.person %></h3>
+      <%end%>
     <% end %>
   </div>  <!-- ends span 8 -->
 </div> <!-- row -->

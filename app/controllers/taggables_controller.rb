@@ -3,14 +3,18 @@ require 'rubygems'
 require 'opencv'
 
 class TaggablesController < ApplicationController
+  before_filter :authenticate_user!
   # GET /taggables
   # GET /taggables.json
   def index
     @taggables = current_user.taggables
     @taggable_center = current_user.taggables.first
+    
 
     if !@taggable_center.nil?
-      @url_no_path = URI.parse(@taggable_center.photo.url).path[%r{[^/]+\z}]
+      @url_no_path = URI.parse(@taggable_center.photo.url(:editable)).path[%r{[^/]+\z}]
+      @url_path = URI.parse(@taggable_center.photo.url(:editable)).path
+      @tags = @taggable_center.tags
     end
     
     respond_to do |format|
@@ -23,6 +27,7 @@ class TaggablesController < ApplicationController
   # GET /taggables/1.json
   def show
     @taggable = current_user.taggables.find(params[:id])
+    @tags = @taggable.tags
     @url_no_path = URI.parse(@taggable.photo.url).path[%r{[^/]+\z}]
     respond_to do |format|
       format.html # show.html.erb
@@ -55,13 +60,14 @@ class TaggablesController < ApplicationController
       if @taggable.save
         # if the DB commit was successful then try to tag faces.
         logger.debug(@taggable.photo.path)
-        faceArray = findFaces(@taggable.photo.path)
+        faceArray = findFaces(@taggable.photo.path(:editable))
         
         faceArray.each do |rect|
           @tag = @taggable.tags.new(:upperLeftX => rect[0],
                              :upperLeftY => rect[1],
                              :lowerRightX => rect[2],
-                             :lowerRightY => rect[3])
+                             :lowerRightY => rect[3],
+                             :person => "blah")
           @tag.save
         end
 
