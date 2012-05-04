@@ -56,12 +56,14 @@
 	  
 	};
 	img.src="<%= @url_path %>";
-
       </script>
+
       <h3>People in this photo:</h3>
+      <ol>
       <% @tags.each do |tag| %>
-        <h3><%= tag.person %></h3>
+        <li><h3><%= tag.person %></h3></li>
       <%end%>
+      <ol>
     <% end %>
   </div>  <!-- ends span 8 -->
 </div> <!-- row -->
