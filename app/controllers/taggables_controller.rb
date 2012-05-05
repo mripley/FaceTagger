@@ -67,7 +67,7 @@ class TaggablesController < ApplicationController
                              :upperLeftY => rect[1],
                              :lowerRightX => rect[2],
                              :lowerRightY => rect[3],
-                             :person => "blah")
+                             :person => "Random Person")
           @tag.save
         end
 
