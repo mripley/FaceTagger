@@ -1,4 +1,7 @@
 FaceTagger::Application.routes.draw do
+  
+  get '/tagging/:id' => 'tagging#tagimage'
+
   resources :tags
 
   resources :taggables

@@ -46,7 +46,7 @@
 	   ctx.drawImage(img,0,0);
            <% i= 1 %>
 	   <%@tags.each do |tag| %>
-	      ctx.fillText(<%=i.to_s%>, <%=tag.upperLeftX%>,<%=tag.upperLeftY%>);
+	      ctx.fillText(<%=i.to_s%>, <%=tag.upperLeftX %>, <%=tag.upperLeftY %>);
 	      <% i+=1%>
 	      ctx.strokeRect(<%=tag.upperLeftX%>,  
 		             <%=tag.upperLeftY%>,

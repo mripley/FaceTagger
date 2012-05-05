@@ -71,7 +71,7 @@ class TaggablesController < ApplicationController
           @tag.save
         end
 
-        format.html { redirect_to taggables_path, notice: 'Taggable was successfully created.' }
+        format.html { redirect_to "/tagging/#{@taggable.id}", notice: 'Taggable was successfully created.' }
         format.json { render json: @taggable, status: :created, location: @taggable }
       else
         format.html { render action: "new" }
@@ -86,6 +86,7 @@ class TaggablesController < ApplicationController
     @taggable = current_user.taggables.find(params[:id])
 
     respond_to do |format|
+      logger.debug(params)
       if @taggable.update_attributes(params[:taggable])
         format.html { redirect_to @taggable, notice: 'Taggable was successfully updated.' }
         format.json { head :no_content }
