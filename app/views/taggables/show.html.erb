@@ -1,14 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <h2><%= "Taggable: #{@url_no_path}" %></h2>
-  <div class="row">
-    <div class="span12">
-      <%= image_tag @taggable.photo.url(:editable) %>
-    </div>
-  </div>
-</p>
+<div class="row">
+  <div class="span3">
+    <h3>People in this photo:</h3>
+       <ol>
+	 <% @tags.each do |tag| %>
+           <li><h4><%= tag.person %></h4></li>
+	 <% end %>
+       </ol>
+   </div>
 
+  <div class="span9">
+    <h2><%= "Taggable: #{@url_no_path}" %></h2>
+    <div class="row">
+      <div class="span12">
+	<%= image_tag @taggable.photo.url(:editable) %>
+       </div>
+     </div>
+   </div>
+</div>
 
 <%= link_to 'Edit', edit_taggable_path(@taggable) %> |
 <%= link_to 'Back', taggables_path %>
